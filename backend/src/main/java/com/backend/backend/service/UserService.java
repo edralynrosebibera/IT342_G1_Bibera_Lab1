@@ -5,18 +5,26 @@ import com.backend.backend.dto.LoginRequest;
 import com.backend.backend.dto.RegisterRequest;
 import com.backend.backend.model.User;
 import com.backend.backend.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
     
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+        @Autowired
+        private TokenProvider tokenProvider;
+
+        @Autowired
+        private ProfileService profileService;
     
     public AuthResponse register(RegisterRequest request) {
         AuthResponse response = new AuthResponse();
@@ -66,6 +74,13 @@ public class UserService {
         response.setFirstName(savedUser.getFirstName());
         response.setLastName(savedUser.getLastName());
         
+            // Create profile for new user
+            profileService.createProfile(savedUser);
+        
+            // Generate token
+            String token = tokenProvider.generateToken(savedUser);
+            response.setToken(token);
+        
         return response;
     }
     
@@ -110,6 +125,10 @@ public class UserService {
         response.setEmail(user.getEmail());
         response.setFirstName(user.getFirstName());
         response.setLastName(user.getLastName());
+        
+            // Generate token
+            String token = tokenProvider.generateToken(user);
+            response.setToken(token);
         
         return response;
     }

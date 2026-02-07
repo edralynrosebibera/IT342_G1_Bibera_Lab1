@@ -4,18 +4,18 @@ import com.backend.backend.dto.AuthResponse;
 import com.backend.backend.dto.LoginRequest;
 import com.backend.backend.dto.RegisterRequest;
 import com.backend.backend.service.UserService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 public class AuthController {
     
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
     
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
