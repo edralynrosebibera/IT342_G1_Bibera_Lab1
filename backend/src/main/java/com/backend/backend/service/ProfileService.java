@@ -15,7 +15,7 @@ public class ProfileService {
     private ProfileRepository profileRepository;
     
     public Profile getProfile(int userId) {
-        // In a real implementation, you would fetch by User ID
+        
         Optional<Profile> profile = profileRepository.findById(userId);
         return profile.orElse(null);
     }

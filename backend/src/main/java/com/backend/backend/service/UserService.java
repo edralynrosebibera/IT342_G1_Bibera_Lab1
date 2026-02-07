@@ -74,10 +74,10 @@ public class UserService {
         response.setFirstName(savedUser.getFirstName());
         response.setLastName(savedUser.getLastName());
         
-            // Create profile for new user
+            
             profileService.createProfile(savedUser);
         
-            // Generate token
+            
             String token = tokenProvider.generateToken(savedUser);
             response.setToken(token);
         
@@ -126,7 +126,7 @@ public class UserService {
         response.setFirstName(user.getFirstName());
         response.setLastName(user.getLastName());
         
-            // Generate token
+            
             String token = tokenProvider.generateToken(user);
             response.setToken(token);
         

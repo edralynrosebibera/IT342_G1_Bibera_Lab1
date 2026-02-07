@@ -24,7 +24,6 @@ public class TokenProvider {
         Date issuedAt = new Date(now);
         Date expiresAt = new Date(now + JWT_TOKEN_VALIDITY);
         
-        // Simplified token generation (in production, use a proper JWT library)
         return subject + ":" + System.currentTimeMillis() + ":" + expiresAt.getTime();
     }
     
@@ -42,7 +41,6 @@ public class TokenProvider {
     }
     
     public void invalidateToken(String token) {
-        // In a production app, you would add this token to a blacklist
-        // For now, this is a placeholder
+        
     }
 }
