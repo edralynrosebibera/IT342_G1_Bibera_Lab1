@@ -4,6 +4,8 @@
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   display: flex;
   flex-direction: column;
+  width: 205vh;
+  margin: 0;
 }
 
 /* Dashboard Header */
@@ -46,11 +48,17 @@
 }
 
 /* Dashboard Main */
-.dashboard-main {
+/* .dashboard-main {
   flex: 1;
   padding: 40px 32px;
   max-width: 3000px;
   margin: 0 auto;
+  width: 100%;
+} */
+
+.dashboard-main {
+  flex: 1;
+  padding: 40px 32px;
   width: 100%;
 }
 
