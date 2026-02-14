@@ -11,8 +11,10 @@ function Signup() {
     password: "",
     confirmPassword: ""
   })
+
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -23,6 +25,7 @@ function Signup() {
     e.preventDefault()
     setLoading(true)
     setError("")
+    setSuccess("")
 
     if (form.password !== form.confirmPassword) {
       setError("Passwords do not match")
@@ -38,10 +41,13 @@ function Signup() {
 
     try {
       const result = await registerUser(form)
-      
+
       if (result.success) {
-        alert("Registration successful! Please log in.")
-        navigate("/login")
+        setSuccess("Registration successful! Redirecting to login...")
+
+        setTimeout(() => {
+          navigate("/login")
+        }, 1500)
       } else {
         setError(result.message || "Registration failed")
       }
@@ -87,9 +93,21 @@ function Signup() {
           <label>Confirm Password</label>
         </div>
 
-        <button type="submit" disabled={loading}>{loading ? "Signing up..." : "Sign-up"}</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Signing up..." : "Sign-up"}
+        </button>
 
-        {error && <div style={{ color: "red", marginTop: "10px" }}>{error}</div>}
+        {error && (
+          <div className="error-message">
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="success-message">
+            {success}
+          </div>
+        )}
 
         <div className="register">
           Already have an account? <a href="/login">Login</a>
