@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#F1F1F1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="COMPUTER SCIENCE"
+                android:textColor="#6B7280"
+                android:textSize="12sp"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btnBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="Start Now"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:textColor="#2563EB"
+                android:textSize="12sp"
+                android:background="@drawable/bg_badge_light_blue" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvExamTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Data Structures &amp; Algorithms"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#111827" />
+
+        <LinearLayout
+            android:id="@+id/infoRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="90 min"
+                android:drawablePadding="6dp"
+                android:textColor="#4B5563"
+                android:drawableStart="@drawable/ic_clock" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40 Qs"
+                android:layout_marginStart="16dp"
+                android:drawablePadding="6dp"
+                android:textColor="#4B5563"
+                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:drawablePadding="6dp"
+                android:textColor="#4B5563"
+                 />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnStartExam"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="20dp"
+            android:text="Start Exam →"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_primary_button" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
