@@ -1,5 +1,6 @@
 package com.example.mobile
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -15,10 +16,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val email =
+        val emailInput =
             findViewById<EditText>(R.id.emailInput)
 
-        val password =
+        val passwordInput =
             findViewById<EditText>(R.id.passwordInput)
 
         val loginBtn =
@@ -26,10 +27,19 @@ class LoginActivity : AppCompatActivity() {
 
         loginBtn.setOnClickListener {
 
-            val request = LoginRequest(
-                email.text.toString(),
-                password.text.toString()
-            )
+            val email = emailInput.text.toString().trim()
+            val password = passwordInput.text.toString().trim()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(
+                    this,
+                    "Please enter email and password",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            val request = LoginRequest(email, password)
 
             RetrofitClient.instance.login(request)
                 .enqueue(object : Callback<AuthResponse> {
@@ -39,9 +49,20 @@ class LoginActivity : AppCompatActivity() {
                         response: Response<AuthResponse>
                     ) {
 
-                        if (response.isSuccessful
-                            && response.body()?.success == true
+                        if (response.isSuccessful &&
+                            response.body()?.success == true
                         ) {
+
+                            val data = response.body()!!
+
+                            val fullName =
+                                "${data.firstName} ${data.lastName}"
+
+                            SessionManager(this@LoginActivity)
+                                .saveLogin(
+                                    data.token!!,
+                                    fullName
+                                )
 
                             Toast.makeText(
                                 this@LoginActivity,
@@ -49,11 +70,21 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
 
+                            startActivity(
+                                Intent(
+                                    this@LoginActivity,
+                                    DashboardActivity::class.java
+                                )
+                            )
+
+                            finish()
+
                         } else {
 
                             Toast.makeText(
                                 this@LoginActivity,
-                                "Login Failed",
+                                response.body()?.message
+                                    ?: "Login Failed",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -66,8 +97,8 @@ class LoginActivity : AppCompatActivity() {
 
                         Toast.makeText(
                             this@LoginActivity,
-                            "Connection Error",
-                            Toast.LENGTH_SHORT
+                            "Connection Error: ${t.message}",
+                            Toast.LENGTH_LONG
                         ).show()
                     }
                 })
